@@ -2009,10 +2009,14 @@ public class MainMenu extends javax.swing.JFrame {
         for (int i = 0; i < characters.size(); i++) {
             CharacterImportModel c = characters.get(i);
             Gender g = new Gender();
+            if(c.getGender()!=null){
             if(c.getGender().equals("M")) {
                 g.setId(1l);
             } else if (c.getGender().equals("F")) {
                 g.setId(2l);
+            }
+            } else {
+                g = null;
             }
             String abbr = c.getFirstName().substring(0, 1) + c.getLastName().substring(0, 1);
             mainFrame.getBookController().newPerson( new Person(g, c.getFirstName(), c.getLastName(), abbr, null, null, null, null, null, null, null, null));

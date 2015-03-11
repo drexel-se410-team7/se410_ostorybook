@@ -214,16 +214,6 @@ public class DlgImportCharacter extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "No characters loaded, select a file.", "Error:", JOptionPane.WARNING_MESSAGE);
         }
 
-        for (int i = 0; i < characterList.size(); i++) {
-            CharacterImportModel c = characterList.get(i);
-            Gender g = new Gender();
-            if (c.getGender().equals("M")) {
-                g.setId(1l);
-            } else if (c.getGender().equals("F")) {
-                g.setId(2l);
-            }
-            new Person(g, c.getFirstName(), c.getLastName(), null, null, null, null, null, null, null, null, null);
-        }
         dispose();
         
 
@@ -232,6 +222,7 @@ public class DlgImportCharacter extends javax.swing.JDialog {
     
     private void scanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scanButtonActionPerformed
         // TODO add your handling code here:
+
         if (file == null || txFolder.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "No file found.", "Error:", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -245,6 +236,7 @@ public class DlgImportCharacter extends javax.swing.JDialog {
                 File enPerson = new File(url.getPath());
                 modelIn = new FileInputStream(enPerson);
                 TokenNameFinderModel model = new TokenNameFinderModel(modelIn);
+                modelIn.close();
                 NameFinderME nameFinder = new NameFinderME(model);
                 FileReader fileReader = new FileReader(file);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -259,14 +251,30 @@ public class DlgImportCharacter extends javax.swing.JDialog {
                         System.out.println(s.toString());
                         CharacterImportModel character = new CharacterImportModel();
                         character.setFirstName(sentence[s.getStart()]);
-                        character.setLastName(sentence[s.getStart() + 1]);
+                        if(s.getStart()+1==sentence.length){
+                            character.setLastName("unknown");    
+                        } else{
+                            character.setLastName(sentence[s.getStart()+1]);
+                        }
                         for (Object k : genderMap.keySet()) {
                             int position = (int) k;
                             if (s.getStart() + 20 > position && position > s.getStart()) {
                                 character.setGender((String) genderMap.get(k));
                             }
                         }
-                        characterList.add(character);
+                        boolean add = true;
+                        for(CharacterImportModel ci : characterList) {
+                            if(ci.getFirstName().equals(character.getFirstName()) && ci.getLastName().equals(character.getLastName())) {
+                                add = false;
+                                if(ci.getGender() == null && character.getGender() != null) {
+                                    ci.setGender(character.getGender());
+                                    
+                                }
+                            }
+                        }
+                        if(add && !character.getFirstName().equals("unknown") && !character.getLastName().equals("unknown")) {
+                            characterList.add(character);
+                        }
                     }
                 }
                 fileReader.close();
