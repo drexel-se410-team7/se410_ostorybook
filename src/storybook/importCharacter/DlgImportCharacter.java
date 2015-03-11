@@ -272,7 +272,7 @@ public class DlgImportCharacter extends javax.swing.JDialog {
                                 }
                             }
                         }
-                        if(add && !character.getFirstName().equals("unknown") && !character.getLastName().equals("unknown")) {
+                        if(add && !character.getFirstName().equals("unknown") && !character.getLastName().equals("unknown") && Character.isUpperCase(character.getLastName().charAt(0))) {
                             characterList.add(character);
                         }
                     }
