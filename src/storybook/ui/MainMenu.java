@@ -20,6 +20,7 @@ import storybook.SbConstants.ViewName;
 import storybook.action.LangToolAction;
 import storybook.export.BookExporter;
 import storybook.export.DlgExport;
+import storybook.importCharacter.DlgImportCharacter;
 import storybook.model.hbn.entity.AbstractEntity;
 import storybook.model.hbn.entity.Category;
 import storybook.model.hbn.entity.Chapter;
@@ -123,6 +124,7 @@ public class MainMenu extends javax.swing.JFrame {
         separatorFile1 = new javax.swing.JPopupMenu.Separator();
         fileProperties = new javax.swing.JMenuItem();
         separatorFile2 = new javax.swing.JPopupMenu.Separator();
+        fileImportCharacter = new javax.swing.JMenuItem();
         fileExport = new javax.swing.JMenuItem();
         filePrint = new javax.swing.JMenuItem();
         separatorFile3 = new javax.swing.JPopupMenu.Separator();
@@ -632,6 +634,15 @@ public class MainMenu extends javax.swing.JFrame {
         });
         menuFile.add(fileProperties);
         menuFile.add(separatorFile2);
+
+        fileImportCharacter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/storybook/resources/icons/16x16/import.png"))); // NOI18N
+        fileImportCharacter.setText("Import Character");
+        fileImportCharacter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileImportCharacterActionPerformed(evt);
+            }
+        });
+        menuFile.add(fileImportCharacter);
 
         fileExport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         fileExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/storybook/resources/icons/16x16/export.png"))); // NOI18N
@@ -1984,6 +1995,12 @@ public class MainMenu extends javax.swing.JFrame {
         mainFrame.showAndFocus(ViewName.ATTRIBUTES);
     }//GEN-LAST:event_chartsAttributesActionPerformed
 
+    private void fileImportCharacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileImportCharacterActionPerformed
+        // TODO add your handling code here:
+        DlgImportCharacter importC = new DlgImportCharacter(mainFrame, true);
+	importC.setVisible(true);
+    }//GEN-LAST:event_fileImportCharacterActionPerformed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -2058,6 +2075,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem fileClose;
     private javax.swing.JMenuItem fileExit;
     private javax.swing.JMenuItem fileExport;
+    private javax.swing.JMenuItem fileImportCharacter;
     private javax.swing.JMenuItem fileNew;
     private javax.swing.JMenuItem fileOpen;
     public javax.swing.JMenu fileOpenRecent;
@@ -2192,7 +2210,7 @@ public class MainMenu extends javax.swing.JFrame {
 		javax.swing.JMenuItem[] submenus={
 			editCopyBlurb, editCopyBook,
 			fileClose, fileExport, filePrint,
-			fileProperties, fileRename, fileSave, fileSaveAs
+			fileProperties, fileRename, fileSave, fileSaveAs, fileImportCharacter
 		};
 		for (javax.swing.JMenuItem m : submenus) {
 			m.setVisible(false);
