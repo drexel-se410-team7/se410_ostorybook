@@ -4,13 +4,7 @@
  */
 package storybook.importCharacter;
 
-import com.aliasi.chunk.CharLmHmmChunker;
-import com.aliasi.chunk.CharLmRescoringChunker;
-import com.aliasi.chunk.Chunker;
-import com.aliasi.hmm.HmmCharLmEstimator;
-import com.aliasi.tokenizer.IndoEuropeanTokenizerFactory;
-import com.aliasi.tokenizer.TokenizerFactory;
-import com.aliasi.util.AbstractExternalizable;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,12 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -81,6 +72,10 @@ public class DlgImportCharacter extends javax.swing.JDialog {
             return true;
         }
         return result;
+    }
+    
+    public ArrayList<CharacterImportModel> getCharacterList() {
+        return characterList;
     }
 
     /**
@@ -229,9 +224,12 @@ public class DlgImportCharacter extends javax.swing.JDialog {
             }
             new Person(g, c.getFirstName(), c.getLastName(), null, null, null, null, null, null, null, null, null);
         }
+        dispose();
+        
 
     }//GEN-LAST:event_btImportActionPerformed
 
+    
     private void scanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scanButtonActionPerformed
         // TODO add your handling code here:
         if (file == null || txFolder.getText().equals("")) {

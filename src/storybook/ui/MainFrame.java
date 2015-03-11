@@ -114,6 +114,7 @@ public class MainFrame extends JFrame implements IPaintable {
 
 	public MainFrame() {
 		FontUtil.setDefaultFont(new Font("Arial", Font.PLAIN, 12));
+                
 	}
 
 	@Override
