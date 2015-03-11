@@ -254,7 +254,7 @@ public class DlgImportCharacter extends javax.swing.JDialog {
                         if(s.getStart()+1==sentence.length){
                             character.setLastName("unknown");    
                         } else{
-                            character.setLastName(sentence[s.getStart()+1]);
+                            character.setLastName(sentence[s.getStart()+1].replaceAll(",$", ""));
                         }
                         for (Object k : genderMap.keySet()) {
                             int position = (int) k;
